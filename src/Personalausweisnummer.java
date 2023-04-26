@@ -10,8 +10,10 @@ public class Personalausweisnummer {
     private static final String LINE1_BEGIN_PATTERN = "IDD<<";
     private static final int LINE1_BEGIN_LENGTH = LINE1_BEGIN_PATTERN.length();
     private static final int LINE1_SERIAL_LENGTH = 9;
+    private static final int LINE1_CHECKSUM_START = LINE1_BEGIN_LENGTH + LINE1_SERIAL_LENGTH;
     private static final int DATE_LENGTH = 6;
     private static final int LINE2_ABLDAT_BEGIN = DATE_LENGTH + 2;
+    private static final int LINE2_ABLDAT_CHECKSUM_START = LINE2_ABLDAT_BEGIN + DATE_LENGTH;
     private String line1;
     private String line2;
     private String line3;
@@ -35,15 +37,18 @@ public class Personalausweisnummer {
 
     private String extractSerial() {
         String serialString = line1.substring(LINE1_BEGIN_LENGTH, LINE1_BEGIN_LENGTH + LINE1_SERIAL_LENGTH);
+        int checksum = Integer.parseInt(line1.substring(LINE1_CHECKSUM_START, LINE1_CHECKSUM_START + 1));
         ArrayList<String> serialValidChars = new ArrayList<>(Arrays.asList("C", "F", "G", "H", "J", "K", "L", "M", "N", "P", "R", "T", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"));
 
         // process serial string for checks
         String[] serialCharsArray = serialString.split("");
         ArrayList<String> serialCharsList = new ArrayList<>(Arrays.asList(serialCharsArray));
 
-        if (!serialValidChars.containsAll(serialCharsList)) {
+        if (!serialValidChars.containsAll(serialCharsList))
             throw new PersoCharacterException();
-        }
+
+        if (checksum != calculateChecksum(serialString))
+            throw new PersoChecksumException();
 
         return serialString;
     }
@@ -54,6 +59,10 @@ public class Personalausweisnummer {
 
     private LocalDate extractGebDat() {
         String gebDatAsString = line2.substring(0, DATE_LENGTH);
+        int checksum = Integer.parseInt(line2.substring(DATE_LENGTH, DATE_LENGTH + 1));
+
+        if (checksum != calculateChecksum(gebDatAsString))
+            throw new PersoChecksumException();
 
         String yearString = gebDatAsString.substring(0, 2);
         String monthString = gebDatAsString.substring(2, 4);
@@ -142,12 +151,62 @@ public class Personalausweisnummer {
         return leap;
     }
 
+    private static int calculateChecksum(String base) {
+        int checksum = 0;
+        int sum = 0;
+        int product = 0;
+        char[] alphabetArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        ArrayList<String> alphabetList = new ArrayList<>();
+        for (char character : alphabetArray) {
+            alphabetList.add(String.valueOf(character));
+        }
+
+        int j = 1;
+        for (int i = 0; i < base.length(); i++) {
+            String currentValueAsString = String.valueOf(base.charAt(i));
+            int currentValue;
+            if (alphabetList.contains(currentValueAsString)) {
+                currentValue = alphabetList.indexOf(currentValueAsString) + 10;
+            } else {
+                currentValue = Integer.parseInt(currentValueAsString);
+            }
+
+            int multiplicator = 0;
+            switch (j) {
+                case 1 -> {
+                    multiplicator = 7;
+                    j++;
+                }
+                case 2 -> {
+                    multiplicator = 3;
+                    j++;
+                }
+                case 3 -> {
+                    multiplicator = 1;
+                    j = 1;
+                }
+            }
+
+            product = currentValue * multiplicator;
+
+            sum += product;
+        }
+        checksum = sum % 10;
+
+        return checksum;
+    }
+
     public LocalDate getGebDat() {
         return gebDat;
     }
 
     private LocalDate extractAblDat() {
         String gebAblAsString = line2.substring(LINE2_ABLDAT_BEGIN, LINE2_ABLDAT_BEGIN + DATE_LENGTH);
+        int checksum = Integer.parseInt(line2.substring(LINE2_ABLDAT_CHECKSUM_START, LINE2_ABLDAT_CHECKSUM_START + 1));
+
+        if (checksum != calculateChecksum(gebAblAsString))
+            throw new PersoChecksumException();
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd", Locale.GERMAN);
         LocalDate ablDat = LocalDate.parse(gebAblAsString, formatter);
 
