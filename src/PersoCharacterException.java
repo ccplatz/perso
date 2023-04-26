@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class PersoCharacterException {
+public class PersoCharacterException extends RuntimeException{
 }

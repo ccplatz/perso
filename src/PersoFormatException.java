@@ -1,2 +1,2 @@
-public class PersoFormatException {
+public class PersoFormatException extends RuntimeException{
 }

@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class PersoChecksumException {
+public class PersoChecksumException extends RuntimeException{
 }
