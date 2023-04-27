@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7251a28f-7c7f-44b2-8da2-d0560fb1bf50" name="Changes" comment="setup project">
+    <list default="true" id="7251a28f-7c7f-44b2-8da2-d0560fb1bf50" name="Changes" comment="ready incl. second checksum line 2">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Perso2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Perso2.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Personalausweisnummer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Personalausweisnummer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,24 +35,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/workspace/java/perso",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/workspace/java/perso&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
@@ -65,6 +64,26 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="PersonalausweisnummerTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonalausweisnummerTest.testChecksum4" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Perso2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PersonalausweisnummerTest" />
+      <option name="METHOD_NAME" value="testChecksum4" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonalausweisnummerTest.testChecksum5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Perso2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PersonalausweisnummerTest" />
+      <option name="METHOD_NAME" value="testChecksum5" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -92,8 +111,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.PersonalausweisnummerTest" />
-        <item itemvalue="JUnit.PersonalausweisnummerTest.testGebDat2" />
+        <item itemvalue="JUnit.PersonalausweisnummerTest.testChecksum5" />
+        <item itemvalue="JUnit.PersonalausweisnummerTest.testChecksum4" />
         <item itemvalue="JUnit.PersonalausweisnummerTest.testGebDat3" />
+        <item itemvalue="JUnit.PersonalausweisnummerTest.testGebDat2" />
       </list>
     </recent_temporary>
   </component>
@@ -106,7 +127,8 @@
       <option name="presentableId" value="Default" />
       <updated>1682252109693</updated>
       <workItem from="1682252111012" duration="10861000" />
-      <workItem from="1682511190587" duration="5722000" />
+      <workItem from="1682511190587" duration="5943000" />
+      <workItem from="1682576349126" duration="3973000" />
     </task>
     <task id="LOCAL-00001" summary="setup project">
       <created>1682259446355</created>
@@ -115,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682259446355</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ready incl. second checksum line 2">
+      <created>1682517360630</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1682517360631</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,17 +163,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="setup project" />
-    <option name="LAST_COMMIT_MESSAGE" value="setup project" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Personalausweisnummer.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="ready incl. second checksum line 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="ready incl. second checksum line 2" />
   </component>
 </project>

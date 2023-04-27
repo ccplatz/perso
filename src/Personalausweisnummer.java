@@ -25,9 +25,14 @@ public class Personalausweisnummer {
         this.line1 = line1;
         this.line2 = line2;
         this.line3 = line3;
+
+        checkFormat(this.line1);
+        checkFormat(this.line2);
+        checkFormat(this.line3);
         serial = extractSerial();
         gebDat = extractGebDat();
         ablDat = extractAblDat();
+        checkSuperChecksum(extractSuperChecksum(), extractSuperChecksumBase());
     }
 
     public Personalausweisnummer(String[] lines) {
@@ -35,10 +40,19 @@ public class Personalausweisnummer {
         new Personalausweisnummer(lines[0], lines[1], lines[2]);
     }
 
+    private void checkFormat(String line) {
+        if (line.length() != 30)
+            throw new PersoFormatException();
+    }
+
     private String extractSerial() {
         String serialString = line1.substring(LINE1_BEGIN_LENGTH, LINE1_BEGIN_LENGTH + LINE1_SERIAL_LENGTH);
-        int checksum = Integer.parseInt(line1.substring(LINE1_CHECKSUM_START, LINE1_CHECKSUM_START + 1));
         ArrayList<String> serialValidChars = new ArrayList<>(Arrays.asList("C", "F", "G", "H", "J", "K", "L", "M", "N", "P", "R", "T", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"));
+        char checksumChar = line1.charAt(LINE1_CHECKSUM_START);
+
+        if (!Character.isDigit(checksumChar))
+            throw new PersoCharacterException();
+        int checksum = Integer.parseInt(Character.toString(checksumChar));
 
         // process serial string for checks
         String[] serialCharsArray = serialString.split("");
@@ -59,10 +73,11 @@ public class Personalausweisnummer {
 
     private LocalDate extractGebDat() {
         String gebDatAsString = line2.substring(0, DATE_LENGTH);
-        int checksum = Integer.parseInt(line2.substring(DATE_LENGTH, DATE_LENGTH + 1));
+        char checksumChar = line2.charAt(DATE_LENGTH);
 
-        if (checksum != calculateChecksum(gebDatAsString))
-            throw new PersoChecksumException();
+        if (!Character.isDigit(checksumChar))
+            throw new PersoCharacterException();
+        int checksum = Integer.parseInt(Character.toString(checksumChar));
 
         String yearString = gebDatAsString.substring(0, 2);
         String monthString = gebDatAsString.substring(2, 4);
@@ -77,6 +92,9 @@ public class Personalausweisnummer {
 
         checkDay(dayString, month, isLeapYear(year));
         int day = Integer.parseInt(dayString);
+
+        if (checksum != calculateChecksum(gebDatAsString))
+            throw new PersoChecksumException();
 
         LocalDate gebDat = LocalDate.of(year, month, day);
 
@@ -202,7 +220,11 @@ public class Personalausweisnummer {
 
     private LocalDate extractAblDat() {
         String gebAblAsString = line2.substring(LINE2_ABLDAT_BEGIN, LINE2_ABLDAT_BEGIN + DATE_LENGTH);
-        int checksum = Integer.parseInt(line2.substring(LINE2_ABLDAT_CHECKSUM_START, LINE2_ABLDAT_CHECKSUM_START + 1));
+        char checksumChar = line2.charAt(LINE2_ABLDAT_CHECKSUM_START);
+
+        if (!Character.isDigit(checksumChar))
+            throw new PersoCharacterException();
+        int checksum = Integer.parseInt(Character.toString(checksumChar));
 
         if (checksum != calculateChecksum(gebAblAsString))
             throw new PersoChecksumException();
@@ -215,5 +237,28 @@ public class Personalausweisnummer {
 
     public LocalDate getAblDat() {
         return ablDat;
+    }
+
+    private int extractSuperChecksum() {
+        char checksumChar = line2.charAt(line2.length() - 1);
+
+        if (!Character.isDigit(checksumChar))
+            throw new PersoCharacterException();
+        int checksum = Integer.parseInt(Character.toString(checksumChar));
+
+        return checksum;
+    }
+
+    private String extractSuperChecksumBase() {
+        String serialAndChecksumString = line1.substring(LINE1_BEGIN_LENGTH, LINE1_BEGIN_LENGTH + LINE1_SERIAL_LENGTH + 1);
+        String gebDatAndChecksumString = line2.substring(0, DATE_LENGTH + 1);
+        String ablDatAndChecksumString = line2.substring(LINE2_ABLDAT_BEGIN, LINE2_ABLDAT_BEGIN + DATE_LENGTH + 1);
+
+        return serialAndChecksumString + gebDatAndChecksumString + ablDatAndChecksumString;
+    }
+
+    private void checkSuperChecksum(int superChecksum, String base) {
+        if (superChecksum != calculateChecksum(base))
+            throw new PersoChecksumException();
     }
 }
