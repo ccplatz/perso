@@ -3,7 +3,6 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class Personalausweisnummer {
@@ -29,6 +28,7 @@ public class Personalausweisnummer {
         checkFormat(this.line1);
         checkFormat(this.line2);
         checkFormat(this.line3);
+
         serial = extractSerial();
         gebDat = extractGebDat();
         ablDat = extractAblDat();

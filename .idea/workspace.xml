@@ -49,6 +49,9 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -129,6 +132,8 @@
       <workItem from="1682252111012" duration="10861000" />
       <workItem from="1682511190587" duration="5943000" />
       <workItem from="1682576349126" duration="3973000" />
+      <workItem from="1682617078705" duration="502000" />
+      <workItem from="1682661348094" duration="23000" />
     </task>
     <task id="LOCAL-00001" summary="setup project">
       <created>1682259446355</created>
